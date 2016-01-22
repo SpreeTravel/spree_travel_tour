@@ -24,15 +24,21 @@
   </div>
   <div class="col-md-3">
     <%hash = display_the_price(product)%>
+  <% if !hash.empty? %>
     <div class="details col-xs-12 col-sm-8 col-md-9">
       <div class="price-section">
         <span class="price"><small>Price:</small><%= hash.first[:price]%> </span>
       </div>
       <div class="action-section">
-        <%= render :partial => 'spree/products/cart_form', :locals => { product: product, variant_id: product.variants.first.id, rate_id: hash.first[:rate], mini: true} %>
+        <%= render :partial => 'spree/products/product_type_cart_form', :locals => { product: product, variant_id: product.variants.first.id, rate_id: hash.first[:rate], mini: true} %>
       </div>
     </div>
   </div>
+    <%else%>
+    <div class="price">
+      <span><%= t(:no_price) %> </span>
+    </div>
+  <%end%>
 
 </li>
 
