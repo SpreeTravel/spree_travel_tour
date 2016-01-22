@@ -9,7 +9,7 @@ module Spree
       (0..1).to_a
     end
 
-    def calculate_price(context, product, options)
+    def calculate_price(context, product, variant, options)
       return [product.price.to_f] if product.rates.empty?
       # TODO creo que los tours no se calcula la catidad de días de la semana
       # days = context.end_date.to_date - context.start_date.to_date rescue 1
@@ -18,7 +18,7 @@ module Spree
       price = []
       list.each do |r|
         if r.start_date <= context.start_date(options).to_s && r.end_date >= context.end_date(options).to_s
-          price << {price:(context.adult.to_i * r.one_adult.to_i + context.child.to_i * r.one_child.to_i), rate:r.id}
+          price << {price:(context.adult(options).to_i * r.one_adult.to_i + context.child(options).to_i * r.one_child.to_i), rate:r.id}
         end
       end
       price
