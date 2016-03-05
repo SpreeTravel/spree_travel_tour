@@ -1,8 +1,9 @@
 module Spree
   class CalculatorTour < BaseCalculator
 
+    # TODo, ver esto aqui porque qiz'as es mejor passar directamente el rate.
     def calculate_price(context, product, variant, options)
-      return [product.price.to_f] if product.rates.empty?
+      return [price:product.price.to_f] if product.rates.empty?
       # days = context.end_date.to_date - context.start_date.to_date rescue 1
 
       list = product.rates
